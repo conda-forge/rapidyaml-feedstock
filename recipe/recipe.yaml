@@ -1,6 +1,9 @@
 context:
-  name: librapidyaml
   version: "0.11.0"
+
+recipe:
+  name: rapidyaml
+  version: ${{ version }}
 
 source:
   url: https://github.com/biojppm/rapidyaml/releases/download/v${{ version }}/rapidyaml-${{ version }}-src.tgz
@@ -48,7 +51,7 @@ outputs:
     requirements:
       run_exports:
         # Pre-1.0 version; breaking changes can occur in any release
-        - ${{ pin_subpackage(name, upper_bound="x.x.x") }}
+        - ${{ pin_subpackage("librapidyaml", upper_bound="x.x.x") }}
       build:
         - ${{ compiler('cxx') }}
         - ${{ stdlib('c') }}
