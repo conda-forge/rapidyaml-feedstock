@@ -1,6 +1,6 @@
 context:
   name: librapidyaml
-  version: "0.11.0"
+  version: "0.12.0"
 
 source:
   url: https://github.com/biojppm/rapidyaml/releases/download/v${{ version }}/rapidyaml-${{ version }}-src.tgz
