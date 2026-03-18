@@ -93,7 +93,7 @@ outputs:
         - setuptools
         - setuptools-scm
         - cmake-build-extension
-        - ${{ pin_subpackage("librapidyaml", upper_bound="x.x.x") }}
+        - ${{ pin_subpackage("librapidyaml", exact=True) }}
       run:
         - python
         - deprecation
