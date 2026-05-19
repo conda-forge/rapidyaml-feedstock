@@ -92,6 +92,7 @@ Current release info
 | Name | Downloads | Version | Platforms |
 | --- | --- | --- | --- |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-librapidyaml-green.svg)](https://anaconda.org/conda-forge/librapidyaml) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/librapidyaml.svg)](https://anaconda.org/conda-forge/librapidyaml) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/librapidyaml.svg)](https://anaconda.org/conda-forge/librapidyaml) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/librapidyaml.svg)](https://anaconda.org/conda-forge/librapidyaml) |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-rapidyaml-green.svg)](https://anaconda.org/conda-forge/rapidyaml) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/rapidyaml.svg)](https://anaconda.org/conda-forge/rapidyaml) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/rapidyaml.svg)](https://anaconda.org/conda-forge/rapidyaml) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/rapidyaml.svg)](https://anaconda.org/conda-forge/rapidyaml) |
 
 Installing rapidyaml
 ====================
@@ -103,16 +104,16 @@ conda config --add channels conda-forge
 conda config --set channel_priority strict
 ```
 
-Once the `conda-forge` channel has been enabled, `librapidyaml` can be installed with `conda`:
+Once the `conda-forge` channel has been enabled, `librapidyaml, rapidyaml` can be installed with `conda`:
 
 ```
-conda install librapidyaml
+conda install librapidyaml rapidyaml
 ```
 
 or with `mamba`:
 
 ```
-mamba install librapidyaml
+mamba install librapidyaml rapidyaml
 ```
 
 It is possible to list all of the versions of `librapidyaml` available on your platform with `conda`:
