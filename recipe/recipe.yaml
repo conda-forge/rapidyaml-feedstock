@@ -8,6 +8,7 @@ recipe:
 source:
   url: https://github.com/biojppm/rapidyaml/releases/download/v${{ version }}/rapidyaml-${{ version }}-src.tgz
   sha256: 02b6f99c72315b8d20b1aa47f4e941e80069d9edd5bae4ba2fdf7e83d8f52d34
+  target_directory: cpp
 
 build:
   number: 0
@@ -30,7 +31,7 @@ outputs:
                 -DRYML_BUILD_BENCHMARKS=OFF ^
                 -DRYML_BUILD_TOOLS=OFF ^
                 -DRYML_BUILD_API=OFF ^
-                %SRC_DIR%
+                %SRC_DIR%\cpp
             cmake --build . --target install
         - if: unix
           then: |
@@ -45,7 +46,7 @@ outputs:
                 -DRYML_BUILD_BENCHMARKS=OFF \
                 -DRYML_BUILD_TOOLS=OFF \
                 -DRYML_BUILD_API=OFF \
-                $SRC_DIR
+                $SRC_DIR/cpp
             cmake --build . --target install
 
     requirements:
