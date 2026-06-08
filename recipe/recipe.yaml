@@ -70,6 +70,9 @@ outputs:
   - package:
       name: rapidyaml
       version: ${{ version }}
+    source:
+      url: https://github.com/biojppm/rapidyaml-python/archive/refs/tags/v${{ version }}.tar.gz
+      sha256: ca0d7fee78e54b3e87f809f7952df464ecccf28511ea66685eb43bc468b968fb
     build:
       script:
         env:
