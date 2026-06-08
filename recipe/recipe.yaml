@@ -8,7 +8,6 @@ recipe:
 source:
   url: https://github.com/biojppm/rapidyaml/releases/download/v${{ version }}/rapidyaml-${{ version }}-src.tgz
   sha256: 02b6f99c72315b8d20b1aa47f4e941e80069d9edd5bae4ba2fdf7e83d8f52d34
-  target_directory: cpp
 
 build:
   number: 0
@@ -31,7 +30,7 @@ outputs:
                 -DRYML_BUILD_BENCHMARKS=OFF ^
                 -DRYML_BUILD_TOOLS=OFF ^
                 -DRYML_BUILD_API=OFF ^
-                %SRC_DIR%\cpp
+                %SRC_DIR%
             cmake --build . --target install
         - if: unix
           then: |
@@ -46,7 +45,7 @@ outputs:
                 -DRYML_BUILD_BENCHMARKS=OFF \
                 -DRYML_BUILD_TOOLS=OFF \
                 -DRYML_BUILD_API=OFF \
-                $SRC_DIR/cpp
+                $SRC_DIR
             cmake --build . --target install
 
     requirements:
@@ -72,8 +71,11 @@ outputs:
       name: rapidyaml
       version: ${{ version }}
     source:
-      url: https://github.com/biojppm/rapidyaml-python/archive/refs/tags/v${{ version }}.tar.gz
-      sha256: ca0d7fee78e54b3e87f809f7952df464ecccf28511ea66685eb43bc468b968fb
+      - url: https://github.com/biojppm/rapidyaml-python/archive/refs/tags/v${{ version }}.tar.gz
+        sha256: ca0d7fee78e54b3e87f809f7952df464ecccf28511ea66685eb43bc468b968fb
+      - url: https://github.com/biojppm/rapidyaml/releases/download/v${{ version }}/rapidyaml-${{ version }}-src.tgz
+        sha256: 02b6f99c72315b8d20b1aa47f4e941e80069d9edd5bae4ba2fdf7e83d8f52d34
+        target_directory: cpp
     build:
       script:
         env:
@@ -111,9 +113,7 @@ outputs:
 about:
   homepage: https://github.com/biojppm/rapidyaml
   license: MIT
-  license_file:
-    - cpp/LICENSE.txt
-    - LICENSE.txt
+  license_file: LICENSE.txt
   summary: A C++ library to parse and emit YAML, and do it fast
   description: |
     RapidYAML (ryml) is a C++ library to parse and emit YAML, with focus
