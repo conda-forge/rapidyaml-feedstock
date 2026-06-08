@@ -73,19 +73,20 @@ outputs:
     source:
       - url: https://github.com/biojppm/rapidyaml-python/archive/refs/tags/v${{ version }}.tar.gz
         sha256: ca0d7fee78e54b3e87f809f7952df464ecccf28511ea66685eb43bc468b968fb
+        target_directory: rapidyaml-python
       - url: https://github.com/biojppm/rapidyaml/releases/download/v${{ version }}/rapidyaml-${{ version }}-src.tgz
         sha256: 02b6f99c72315b8d20b1aa47f4e941e80069d9edd5bae4ba2fdf7e83d8f52d34
-        target_directory: cpp
+        target_directory: rapidyaml-python/cpp
     build:
       script:
         env:
           SETUPTOOLS_SCM_PRETEND_VERSION: ${{ version }}
         content:
           - if: unix
-            then: $PYTHON -m pip install . -vv --no-deps --no-build-isolation
+            then: $PYTHON -m pip install ./rapidyaml-python -vv --no-deps --no-build-isolation
           - if: win
             then: |
-              %PYTHON% -m pip install . -vv --no-deps --no-build-isolation
+              %PYTHON% -m pip install .\rapidyaml-python -vv --no-deps --no-build-isolation
     requirements:
       build:
         - ${{ compiler('cxx') }}
