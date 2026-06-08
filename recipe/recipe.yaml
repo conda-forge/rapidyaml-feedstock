@@ -111,7 +111,9 @@ outputs:
 about:
   homepage: https://github.com/biojppm/rapidyaml
   license: MIT
-  license_file: LICENSE.txt
+  license_file:
+    - cpp/LICENSE.txt
+    - LICENSE.txt
   summary: A C++ library to parse and emit YAML, and do it fast
   description: |
     RapidYAML (ryml) is a C++ library to parse and emit YAML, with focus
