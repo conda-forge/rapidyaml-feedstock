@@ -1,12 +1,13 @@
 context:
-  version: "0.15.0"
+  librapidyaml_version: "0.15.0"
+  rapidyaml_version: "0.15.0"
 
 recipe:
   name: rapidyaml
-  version: ${{ version }}
+  version: ${{ librapidyaml_version }}
 
 source:
-  url: https://github.com/biojppm/rapidyaml/releases/download/v${{ version }}/rapidyaml-${{ version }}-src.tgz
+  url: https://github.com/biojppm/rapidyaml/releases/download/v${{ librapidyaml_version }}/rapidyaml-${{ librapidyaml_version }}-src.tgz
   sha256: 02b6f99c72315b8d20b1aa47f4e941e80069d9edd5bae4ba2fdf7e83d8f52d34
 
 build:
@@ -15,7 +16,7 @@ build:
 outputs:
   - package:
       name: librapidyaml
-      version: ${{ version }}
+      version: ${{ librapidyaml_version }}
     build:
       script:
         - if: win
@@ -69,7 +70,7 @@ outputs:
 
   - package:
       name: rapidyaml
-      version: ${{ version }}
+      version: ${{ rapidyaml_version }}
     about:
       homepage: https://github.com/biojppm/rapidyaml-python
       license: MIT
@@ -82,16 +83,16 @@ outputs:
       documentation: https://github.com/biojppm/rapidyaml-python/blob/master/README.md
       repository: https://github.com/biojppm/rapidyaml-python
     source:
-      - url: https://github.com/biojppm/rapidyaml-python/archive/refs/tags/v${{ version }}.tar.gz
+      - url: https://github.com/biojppm/rapidyaml-python/archive/refs/tags/v${{ rapidyaml_version }}.tar.gz
         sha256: ca0d7fee78e54b3e87f809f7952df464ecccf28511ea66685eb43bc468b968fb
         target_directory: rapidyaml-python
-      - url: https://github.com/biojppm/rapidyaml/releases/download/v${{ version }}/rapidyaml-${{ version }}-src.tgz
+      - url: https://github.com/biojppm/rapidyaml/releases/download/v${{ rapidyaml_version }}/rapidyaml-${{ rapidyaml_version }}-src.tgz
         sha256: 02b6f99c72315b8d20b1aa47f4e941e80069d9edd5bae4ba2fdf7e83d8f52d34
         target_directory: rapidyaml-python/cpp
     build:
       script:
         env:
-          SETUPTOOLS_SCM_PRETEND_VERSION: ${{ version }}
+          SETUPTOOLS_SCM_PRETEND_VERSION: ${{ rapidyaml_version }}
         content:
           - if: unix
             then: $PYTHON -m pip install ./rapidyaml-python -vv --no-deps --no-build-isolation
@@ -111,11 +112,9 @@ outputs:
         - setuptools
         - setuptools-scm
         - cmake-build-extension
-        - ${{ pin_subpackage("librapidyaml", exact=True) }}
       run:
         - python
         - deprecation
-        - ${{ pin_subpackage("librapidyaml", upper_bound="x.x.x") }}
     tests:
       - python:
           imports:
