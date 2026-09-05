@@ -3,6 +3,10 @@ About rapidyaml-feedstock
 
 Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/rapidyaml-feedstock/blob/main/LICENSE.txt)
 
+
+About rapidyaml
+---------------
+
 Home: https://github.com/biojppm/rapidyaml
 
 Package license: MIT
@@ -18,6 +22,23 @@ on speed and minimal memory overhead. It features in-place parsing,
 string views instead of copies, and a flat index-based tree structure.
 It achieves approximately 150MB/s YAML parsing and 450MB/s JSON parsing
 on modern processors, significantly outperforming alternatives.
+
+About rapidyaml
+---------------
+
+Home: https://github.com/biojppm/rapidyaml-python
+
+Package license: MIT
+
+Summary: Python bindings for RapidYAML, a fast C++ YAML parser
+
+Development: https://github.com/biojppm/rapidyaml-python
+
+Documentation: https://github.com/biojppm/rapidyaml-python/blob/master/README.md
+
+Python bindings for RapidYAML (ryml), a fast C++ YAML parser and
+emitter. The bindings are maintained in a dedicated repository and
+link against the librapidyaml shared library.
 
 Current build status
 ====================
@@ -44,24 +65,31 @@ Current build status
         <table>
           <thead><tr><th>Variant</th><th>Status</th></tr></thead>
           <tbody><tr>
-              <td>osx_64</td>
+              <td>osx_64_channel_sourcesconda-forge</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=27560&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/rapidyaml-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_64_" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/rapidyaml-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_64_channel_sourcesconda-forge" alt="variant">
                 </a>
               </td>
             </tr><tr>
-              <td>osx_arm64</td>
+              <td>osx_64_channel_sourcesconda-forgeconda-forgelabelpython_rc</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=27560&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/rapidyaml-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_arm64_" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/rapidyaml-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_64_channel_sourcesconda-forgeconda-forgelabelpython_rc" alt="variant">
                 </a>
               </td>
             </tr><tr>
-              <td>win_64</td>
+              <td>osx_arm64_channel_sourcesconda-forge</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=27560&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/rapidyaml-feedstock?branchName=main&jobName=win&configuration=win%20win_64_" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/rapidyaml-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_arm64_channel_sourcesconda-forge" alt="variant">
+                </a>
+              </td>
+            </tr><tr>
+              <td>osx_arm64_channel_sourcesconda-forgeconda-forgelabelpython_rc</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=27560&branchName=main">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/rapidyaml-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_arm64_channel_sourcesconda-forgeconda-forgelabelpython_rc" alt="variant">
                 </a>
               </td>
             </tr>
@@ -90,31 +118,73 @@ conda config --add channels conda-forge
 conda config --set channel_priority strict
 ```
 
-Once the `conda-forge` channel has been enabled, `librapidyaml, rapidyaml` can be installed with `conda`:
+How to use
+----------
+
+<details>
+<summary>With conda</summary>
 
 ```
 conda install librapidyaml rapidyaml
 ```
 
-or with `mamba`:
+</details>
+
+<details>
+<summary>With mamba</summary>
 
 ```
 mamba install librapidyaml rapidyaml
 ```
 
-It is possible to list all of the versions of `librapidyaml` available on your platform with `conda`:
+</details>
+
+<details>
+<summary>With pixi</summary>
+
+```
+# for adding to your local project
+pixi add librapidyaml rapidyaml
+# for installing globally
+pixi global install librapidyaml rapidyaml
+```
+
+</details>
+
+Search package versions
+-----------------------
+
+It is possible to list all of the versions of `librapidyaml` available on your platform:
+
+<details>
+<summary>With conda</summary>
 
 ```
 conda search librapidyaml --channel conda-forge
 ```
 
-or with `mamba`:
+</details>
+
+<details>
+<summary>With mamba</summary>
 
 ```
 mamba search librapidyaml --channel conda-forge
 ```
 
-Alternatively, `mamba repoquery` may provide more information:
+</details>
+
+<details>
+<summary>With pixi</summary>
+
+```
+pixi search librapidyaml --channel conda-forge
+```
+
+</details>
+
+<details>
+<summary>With mamba repoquery, which may provide more information</summary>
 
 ```
 # Search all versions available on your platform:
@@ -126,6 +196,8 @@ mamba repoquery whoneeds librapidyaml --channel conda-forge
 # List dependencies of `librapidyaml`:
 mamba repoquery depends librapidyaml --channel conda-forge
 ```
+
+</details>
 
 
 About conda-forge
