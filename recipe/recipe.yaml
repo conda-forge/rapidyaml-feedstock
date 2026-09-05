@@ -91,6 +91,15 @@ outputs:
       - url: https://github.com/biojppm/rapidyaml/releases/download/v${{ rapidyaml_version }}/rapidyaml-${{ rapidyaml_version }}-src.tgz
         sha256: 02b6f99c72315b8d20b1aa47f4e941e80069d9edd5bae4ba2fdf7e83d8f52d34
         target_directory: rapidyaml-python/cpp
+        patches:
+          # The python API only builds an extension module, but on macOS the
+          # full Development component was requested, which implies
+          # Development.Embed and so needs a shared libpython. conda-forge
+          # stopped shipping that alongside the interpreter in CPython 3.15
+          # (conda-forge/python-feedstock#843), breaking the osx builds while
+          # every other platform, already on Development.Module, was fine.
+          # Not yet reported upstream; still present on master.
+          - patches/0001-api-dont-require-Development.Embed-for-the-python-module.patch
     build:
       script:
         env:

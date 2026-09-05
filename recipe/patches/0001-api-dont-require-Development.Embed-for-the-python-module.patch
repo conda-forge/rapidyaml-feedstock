@@ -1,0 +1,67 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Chris Burr <chrisburr73@gmail.com>
+Date: Sat, 5 Sep 2026 14:51:32 +0200
+Subject: [PATCH] api: don't require Development.Embed for the Python module
+
+The Python API only builds an extension module, which never needs to link
+libpython -- the symbols are resolved from the interpreter that loads it.
+On Apple, however, the full `Development` component was requested, which
+implies `Development.Embed` and therefore requires a shared libpython to be
+present:
+
+    CMake Error at .../FindPackageHandleStandardArgs.cmake:290 (message):
+      Could NOT find Python3 (missing: Python3_LIBRARIES Development
+      Development.Embed) (found version "3.15.0")
+    Call Stack (most recent call first):
+      ...
+      api/CMakeLists.txt:67 (find_package)
+
+Distributions are increasingly shipping the shared libpython separately from
+the interpreter, since it is not needed to build or run extension modules --
+conda-forge does so as of CPython 3.15. On such installs the macOS build
+fails to configure while every other platform, already using
+Development.Module, builds fine.
+
+Use Development.Module everywhere and link against the imported target
+Python3::Module rather than ${Python3_LIBRARIES}. The target carries the
+right per-platform link behaviour: `-undefined dynamic_lookup` on Apple, the
+import library on Windows, and nothing on other platforms -- which matches
+what already happened there, as Development.Module leaves Python3_LIBRARIES
+empty.
+---
+ api/CMakeLists.txt | 15 +++++++--------
+ 1 file changed, 7 insertions(+), 8 deletions(-)
+
+diff --git a/api/CMakeLists.txt b/api/CMakeLists.txt
+index bab4f7f..d704e7d 100644
+--- a/api/CMakeLists.txt
++++ b/api/CMakeLists.txt
+@@ -63,13 +63,12 @@ endif()
+ if(RYML_BUILD_API_PYTHON)
+     c4_log("enabling python3 API")
+     set(Python3_FIND_VIRTUALENV "FIRST")
+-    if(APPLE)
+-        find_package(Python3 COMPONENTS Interpreter Development REQUIRED)
+-    else()
+-        # use Development.Module to ensure this works with cibuildwheel:
+-        # https://github.com/pypa/cibuildwheel/issues/639
+-        find_package(Python3 COMPONENTS Interpreter Development.Module REQUIRED)
+-    endif()
++    # use Development.Module to ensure this works with cibuildwheel:
++    # https://github.com/pypa/cibuildwheel/issues/639
++    # Development.Embed (implied by Development) is not needed to build an
++    # extension module, and requires a shared libpython that is not always
++    # installed alongside the interpreter.
++    find_package(Python3 COMPONENTS Interpreter Development.Module REQUIRED)
+     c4_log("found python:
+     ver=${Python3_VERSION}
+     exe=${Python3_EXECUTABLE}
+@@ -93,7 +92,7 @@ if(RYML_BUILD_API_PYTHON)
+     #c4_set_folder_remote_project_targets("api" ${t})
+     add_dependencies(ryml-api-build ${t})
+     target_include_directories(${t} PUBLIC ${ryml_incs})
+-    swig_link_libraries(${t} ${Python3_LIBRARIES})
++    target_link_libraries(${t} PRIVATE Python3::Module)
+     set_target_properties(${t} PROPERTIES
+         OUTPUT_NAME "ryml"
+         SWIG_GENERATED_INCLUDE_DIRECTORIES ${Python3_INCLUDE_DIRS}
